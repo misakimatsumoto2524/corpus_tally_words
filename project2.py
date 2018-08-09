@@ -1,22 +1,29 @@
 import os
 import codecs
-import numpy as np
+import re
 
-# folder path to read files
-folder = "test"
-def project2():
+import string as s
+
+def make_set(set):
+
+
+
+def clean_text():
+    folder = "test"
+
     for file in os.listdir(folder):
         filepath = os.path.join(folder, file)
         with codecs.open(filepath, "r", encoding='utf-8', errors='ignore') as f:
-            content = f.readlines()
-            for piece in content:
-                if ("<" in piece):
-                    index_start = piece.index("<")
-                    index_end = piece.index(">") + 1
-                    piece = piece[:index_start] + piece[index_end:]
-                print(piece)
+            content = f.read()
+            tag = re.compile('<.*?>')
+            punc = re.compile("[^a-zA-Z' ]")
+            cleantext = re.sub(tag, '', content)
+            cleantext = re.sub(punc, '', cleantext)
+            cleantext = cleantext.split(" ")
+    print(cleantext)
+
+    make_set(cleantext)
 
 
-
-project2 = project2()
-project2
+clean_text = clean_text()
+clean_text
