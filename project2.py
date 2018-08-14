@@ -7,10 +7,13 @@ def make_set(set):
     apo_list = {}
     word_list = []
     # set = filter("''", set)
-    for each in set:
-        each = re.split(' |; |,| |-|\n', each)
-        # each = list(filter(None, each))
-        print(each)
+    # set = re.split(' |;|,|-|\n', set)
+    print(set)
+
+    # for each in set:
+    #     # each = re.split(' |;|,|-|\n', each)
+    #     # each = list(filter(None, each))
+    #     print(each)
 
     #     for i in each:
     #         if (i in apo_list.keys()):
@@ -31,12 +34,17 @@ def clean_text():
         filepath = os.path.join(folder, file)
         with codecs.open(filepath, "r", encoding='utf-8', errors='ignore') as f:
             content = f.read()
-            tag = re.compile('<.*?>')
-            # punc = re.compile('[123456789!@#$%^&*()-=_+``/;]')
-            punc = re.compile("[^a-zA-Z(?s) ']")
+            tag = re.compile("<.*?>")
+            punc = re.compile("[^a-zA-Z-' \n]")
+
+            # apos = re.compile("^{''.*''}")
+
+
             cleantext = re.sub(tag, '', content)
             cleantext = re.sub(punc, '', cleantext)
-            cleantext = re.findall(r"''(.*?)''", cleantext)
+            cleantext = re.findall("''(.*?)''", cleantext)
+
+
     make_set(cleantext)
 
 
